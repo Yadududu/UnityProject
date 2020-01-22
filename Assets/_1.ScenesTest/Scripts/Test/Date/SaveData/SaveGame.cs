@@ -23,7 +23,7 @@ public class SaveGame : MonoBehaviour {
         //新建Save对象
         Save save = new Save();
         //遍历所有的target
-        for(int i = 0;i<10;i++){
+        for(int i = 0;i<5;i++){
             save.Positions.Add(i);
             save.Types.Add(i);
         }
@@ -42,24 +42,24 @@ public class SaveGame : MonoBehaviour {
         //创建一个二进制格式化程序
         BinaryFormatter bf = new BinaryFormatter();
         //创建一个文件流
-        FileStream fileStream = File.Create(Application.dataPath + "/StreamingFile" + "/byBin.txt");
+        FileStream fileStream = File.Create(Application.dataPath + "/StreamingAssets" + "/byBin.txt");
         //用二进制格式化程序的序列化方法来序列化Save对象,参数：创建的文件流和需要序列化的对象
         bf.Serialize(fileStream, save);
         //关闭流
         fileStream.Close();
 
         //如果文件存在，则显示保存成功
-        if (File.Exists(Application.dataPath + "/StreamingFile" + "/byBin.txt")) {
+        if (File.Exists(Application.dataPath + "/StreamingAssets" + "/byBin.txt")) {
             Debug.Log("保存成功");
         }
     }
     public void LoadByBin() {
-        if (File.Exists(Application.dataPath + "/StreamingFile" + "/byBin.txt")) {
+        if (File.Exists(Application.dataPath + "/StreamingAssets" + "/byBin.txt")) {
             //反序列化过程
             //创建一个二进制格式化程序
             BinaryFormatter bf = new BinaryFormatter();
             //打开一个文件流
-            FileStream fileStream = File.Open(Application.dataPath + "/StreamingFile" + "/byBin.txt", FileMode.Open);
+            FileStream fileStream = File.Open(Application.dataPath + "/StreamingAssets" + "/byBin.txt", FileMode.Open);
             //调用格式化程序的反序列化方法，将文件流转换为一个Save对象
             Save save = (Save)bf.Deserialize(fileStream);
             //关闭文件流
@@ -76,7 +76,7 @@ public class SaveGame : MonoBehaviour {
     public void SaveByXml() {
         Save save = CreateSaveGO();
         //创建XML文件的存储路径
-        string filePath = Application.dataPath + "/StreamingFile" + "/byXML.txt";
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byXML.txt";
         //创建XML文档
         XmlDocument xmlDoc = new XmlDocument();
         //创建根节点，即最上层节点
@@ -116,12 +116,12 @@ public class SaveGame : MonoBehaviour {
         xmlDoc.AppendChild(root);
         xmlDoc.Save(filePath);
 
-        if (File.Exists(Application.dataPath + "/StreamingFile" + "/byXML.txt")) {
+        if (File.Exists(Application.dataPath + "/StreamingAssets" + "/byXML.txt")) {
             Debug.Log("保存成功");
         }
     }
     public void LoadByXml() {
-        string filePath = Application.dataPath + "/StreamingFile" + "/byXML.txt";
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byXML.txt";
         if (File.Exists(filePath)) {
             Save save = new Save();
             //加载XML文档
@@ -163,7 +163,7 @@ public class SaveGame : MonoBehaviour {
     //JSON:存档和读档
     public void SaveByJson() {
         Save save = CreateSaveGO();
-        string filePath = Application.dataPath + "/StreamingFile" + "/byJson.json";
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
         //利用JsonMapper将save对象转换为Json格式的字符串
         string saveJsonStr = JsonMapper.ToJson(save);
         //将这个字符串写入到文件中
@@ -176,7 +176,7 @@ public class SaveGame : MonoBehaviour {
         Debug.Log("保存成功");
     }
     public void LoadByJson() {
-        string filePath = Application.dataPath + "/StreamingFile" + "/byJson.json";
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
         if (File.Exists(filePath)) {
             //创建一个StreamReader，用来读取流
             StreamReader sr = new StreamReader(filePath);
@@ -186,6 +186,37 @@ public class SaveGame : MonoBehaviour {
             sr.Close();
             //将字符串jsonStr转换为Save对象
             Save save = JsonMapper.ToObject<Save>(jsonStr);
+            SetGame(save);
+        } else {
+            Debug.Log("存档文件不存在");
+        }
+    }
+    //JSON:存档和读档
+    public void SaveByUnityJson() {
+        Save save = CreateSaveGO();
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
+        //利用JsonUtility将save对象转换为Json格式的字符串
+        string saveJsonStr = JsonUtility.ToJson(save);
+        //将这个字符串写入到文件中
+        //创建一个StreamWriter，并将字符串写入文件中
+        StreamWriter sw = new StreamWriter(filePath);
+        sw.Write(saveJsonStr);
+        //关闭StreamWriter
+        sw.Close();
+
+        Debug.Log("保存成功");
+    }
+    public void LoadByUnityJson() {
+        string filePath = Application.dataPath + "/StreamingAssets" + "/byJson.json";
+        if (File.Exists(filePath)) {
+            //创建一个StreamReader，用来读取流
+            StreamReader sr = new StreamReader(filePath);
+            //将读取到的流赋值给jsonStr
+            string jsonStr = sr.ReadToEnd();
+            //关闭
+            sr.Close();
+            //将字符串jsonStr转换为Save对象
+            Save save = JsonUtility.FromJson<Save>(jsonStr);
             SetGame(save);
         } else {
             Debug.Log("存档文件不存在");

@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,4 +15,4 @@ MonoBehaviour:
   name: Item
   icon: {fileID: 21300000, guid: bec81dec6a1c41042a95868c11a3f5fb, type: 3}
   count: 12
-  gameObject: {fileID: 1911645547860714, guid: 9922b9cb939c53a4986a69dcbed1c894, type: 2}
+  gameObject: {fileID: 1911645547860714, guid: 9922b9cb939c53a4986a69dcbed1c894, type: 3}
