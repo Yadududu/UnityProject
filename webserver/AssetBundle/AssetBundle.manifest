@@ -1,0 +1,15 @@
+ManifestFileVersion: 0
+CRC: 1627898820
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: model/sphere.unity3d
+      Dependencies:
+        Dependency_0: material/chartlet.unity3d
+    Info_1:
+      Name: model/cube.unity3d
+      Dependencies:
+        Dependency_0: material/chartlet.unity3d
+    Info_2:
+      Name: material/chartlet.unity3d
+      Dependencies: {}

@@ -1,0 +1,6 @@
+D:\Projects\UnityProjects\UnityProject\ConsoleTimer\ConsoleTimer\ConsoleTimer\bin\Debug\ConsoleTimer.exe.config
+D:\Projects\UnityProjects\UnityProject\ConsoleTimer\ConsoleTimer\ConsoleTimer\bin\Debug\ConsoleTimer.exe
+D:\Projects\UnityProjects\UnityProject\ConsoleTimer\ConsoleTimer\ConsoleTimer\bin\Debug\ConsoleTimer.pdb
+D:\Projects\UnityProjects\UnityProject\ConsoleTimer\ConsoleTimer\ConsoleTimer\obj\Debug\ConsoleTimer.csprojResolveAssemblyReference.cache
+D:\Projects\UnityProjects\UnityProject\ConsoleTimer\ConsoleTimer\ConsoleTimer\obj\Debug\ConsoleTimer.exe
+D:\Projects\UnityProjects\UnityProject\ConsoleTimer\ConsoleTimer\ConsoleTimer\obj\Debug\ConsoleTimer.pdb
