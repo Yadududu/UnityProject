@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Date : MonoBehaviour {
+public class DateModel : MonoBehaviour {
 
-    public float year;
-    public int month;
+    public static DateModel Get { get; private set; }
+    public const int YearInit = 2020;
+    public const int YearMax = 2990;
+    public const int YearMin = 0;
 
-    void OnEnable() {
-        Debug.Log(GetDay(year, month));
+    private DateModel() {
+        Get = this;
     }
 
-    private int GetDay(float year, int month) {
+    public int GetDay(float year, int month) {
         int day = 0;
         bool isLeapYear = false;
         if (year % 100 == 0) {
