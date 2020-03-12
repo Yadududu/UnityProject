@@ -5,6 +5,7 @@ using UnityEngine;
 public class TestRay : MonoBehaviour {
 
     public Transform obj;
+    public LayerMask layerMask;
 
     void Start() {
 
@@ -20,11 +21,19 @@ public class TestRay : MonoBehaviour {
         //}
 
         //在物体身上发送射线
+        Ray ray = new Ray(obj.position, Vector3.forward);//在物体身上发出射线
         RaycastHit hit;
-        if (Physics.Raycast(obj.transform.position, obj.transform.forward, out hit, 1000)) {
+        if (Physics.Raycast(ray, out hit,Mathf.Infinity,layerMask)) {//检测碰撞
+            Debug.DrawLine(ray.origin, hit.point,Color.red);//画线
             Debug.Log(hit.transform.name);
-            Debug.DrawLine(obj.transform.position, hit.point, Color.red);
         }
+        //在物体身上发送射线
+        //RaycastHit hit;
+        //if (Physics.Raycast(obj.transform.position, obj.transform.forward, out hit, 1000)) {
+        //    Debug.Log(hit.transform.name);
+        //    Debug.DrawLine(obj.transform.position, hit.point, Color.red);
+        //}
+
         //可以穿透
         //RaycastHit[] hits = Physics.RaycastAll(obj.position, obj.forward);
         //Debug.DrawRay(obj.position, obj.forward, Color.red);
