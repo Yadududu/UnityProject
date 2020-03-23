@@ -26,7 +26,6 @@ public class CreateSprite {
         { "pinput", typeof(TMP_InputField).Name },
         { "scr", typeof(ScrollRect).Name },
     };
-
     //脚本模版
     private static CreateSpriteUnit info;
     //保存已经创建的list名,避免重复创建
@@ -35,22 +34,23 @@ public class CreateSprite {
     //在Project窗口下，选中要导出的界面，然后点击GameObject/导出脚本
     [MenuItem("GameObject/CreateUIScript", false, 11)]
     public static void CreateSpriteAction() {
-        GameObject[] gameObjects = Selection.gameObjects;
-        //保证只有一个对象
-        if (gameObjects.Length == 1) {
-            info = new CreateSpriteUnit();
-            CurGo = gameObjects[0];
-            ReadChild(CurGo.transform);
-            info.classname = CurGo.name + "UIPanel";
-            info.WtiteClass();
-            info = null;
-            CurGo = null;
-            typeMap.Clear();
-            _VarName.Clear();
-            
-        } else {
-            EditorUtility.DisplayDialog("警告", "你只能选择一个GameObject", "确定");
-        }
+        CreateUIScript.ShowMyWindow();
+        //GameObject[] gameObjects = Selection.gameObjects;
+        ////保证只有一个对象
+        //if (gameObjects.Length == 1) {
+        //    info = new CreateSpriteUnit();
+        //    CurGo = gameObjects[0];
+        //    ReadChild(CurGo.transform);
+        //    info.classname = CurGo.name + "UIPanel";
+        //    info.WtiteClass();
+        //    info = null;
+        //    CurGo = null;
+        //    typeMap.Clear();
+        //    _VarName.Clear();
+
+        //} else {
+        //    EditorUtility.DisplayDialog("警告", "你只能选择一个GameObject", "确定");
+        //}
     }
     //遍历所有子对象，GetChild方法只能获取第一层子对象。
     public static void ReadChild(Transform tf) {
