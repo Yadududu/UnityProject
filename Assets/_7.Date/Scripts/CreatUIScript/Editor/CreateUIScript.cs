@@ -6,48 +6,56 @@ using System.IO;
 
 public class CreateUIScript : EditorWindow {
 
-    string path;
-    Rect rect;
-    
-    [MenuItem("Window/CreateUIScript" )]
+    private string _ClassName = "default";
+    private string _Path= "Assets/Scripts/UI/";
+    private Rect _Rect;
+    private bool _CreatComponentSign = false;
+    private bool _AddComponentSign = false;
+    private static CreateUIScript window;
+
+    [MenuItem("Window/CreateUIScript")]
     public static void ShowMyWindow() {
-        CreateUIScript window = EditorWindow.GetWindow<CreateUIScript>();
+        window = EditorWindow.GetWindow<CreateUIScript>();
         window.Show();
     }
 
-    private string _name = "default";
-    private bool b = false;
     private void OnGUI() {
-        _name = EditorGUILayout.TextField("输入脚本名字:", _name);
-        
+        _ClassName = EditorGUILayout.TextField("输入脚本名:", _ClassName);
+
         ////获得一个长300的框
-        //rect = EditorGUILayout.GetControlRect(GUILayout.Width(300));
+        _Rect = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 7));
         //将上面的框作为文本输入框
-        path = EditorGUILayout.TextField("文件夹保存路径:", path);
+        _Path = EditorGUI.TextField(_Rect, "文件夹保存路径:", _Path);
 
         //如果鼠标正在拖拽中或拖拽结束时，并且鼠标所在位置在文本输入框内
         if ((Event.current.type == UnityEngine.EventType.DragUpdated
           || Event.current.type == UnityEngine.EventType.DragExited)
-          && rect.Contains(Event.current.mousePosition)) {
+          && _Rect.Contains(Event.current.mousePosition)) {
             //改变鼠标的外表
             DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
             if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0) {
-                path = DragAndDrop.paths[0];
+                _Path = DragAndDrop.paths[0];
             }
         }
 
         if (GUILayout.Button("选择路径", GUILayout.Width(100))) {
-            string path = EditorUtility.SaveFilePanelInProject("选择路径", " ", "", "");
-            Debug.Log(path);
+            _Path = EditorUtility.SaveFilePanelInProject("选择路径", _ClassName, "", "");
         }
 
-        b = EditorGUILayout.Toggle("toggle", b);
+        _CreatComponentSign = EditorGUILayout.Toggle("是否生成实现类:", _CreatComponentSign);
+        if (_CreatComponentSign) {
+            _AddComponentSign = EditorGUILayout.Toggle("是否挂载该GameObject上:", _AddComponentSign);
+        } else {
+            _AddComponentSign = false;
+        }
 
         if (GUILayout.Button("创建脚本")) {
-            GameObject go = new GameObject(_name);
-            Undo.RegisterCreatedObjectUndo(go, "create gameobject");
+            CreateSprite.CreateScript(_ClassName, _Path, _CreatComponentSign, _AddComponentSign);
+            window.Close();
+            //GameObject go = new GameObject(_ClassName);
+            //Undo.RegisterCreatedObjectUndo(go, "create gameobject");
         }
-        
+
     }
     //[MenuItem("Example/Overwrite Texture")]
     //static void Apply() {

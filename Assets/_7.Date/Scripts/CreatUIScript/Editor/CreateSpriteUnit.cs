@@ -33,7 +33,7 @@ public class @ClassName {
     /// 把拼接好的脚本写到本地。
     /// （自己可以个窗口支持改名和选择路径，真实工程里是带这些功能的）
     /// </summary>
-    public void WtiteClass() {
+    public void WtiteClass(string path) {
         bool flag = true;
         bool throwOnInvalidBytes = false;
         UTF8Encoding encoding = new UTF8Encoding(flag, throwOnInvalidBytes);
@@ -41,7 +41,8 @@ public class @ClassName {
         if (File.Exists(Application.dataPath + "/" + classname + ".cs")) {
             EditorUtility.DisplayDialog("警告", classname + ".cs文件已存在,请先删除" + classname + ".cs或者修改文件名再生成脚本", "确定");
         } else {
-            StreamWriter writer = new StreamWriter(Application.dataPath + "/" + classname + ".cs", append, encoding);
+            //StreamWriter writer = new StreamWriter(Application.dataPath + "/" + classname + ".cs", append, encoding);
+            StreamWriter writer = new StreamWriter(path, append, encoding);
             writer.Write(GetClasss());
             writer.Close();
             AssetDatabase.Refresh();
