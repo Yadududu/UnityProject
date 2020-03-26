@@ -45,7 +45,9 @@ public class LoadAssetBundlesScene : MonoBehaviour {
         var _uri = new System.Uri(Path.Combine(Application.streamingAssetsPath, "uriByJson.json"));
         UnityWebRequest request = UnityWebRequest.Get(_uri);
         yield return request.SendWebRequest();
-        if (request.isDone) {
+        if (request.isNetworkError || request.isHttpError) {
+            Debug.Log(request.error);
+        } else {
             StringReader sr = new StringReader(request.downloadHandler.text);
             string s = sr.ReadToEnd();
             sr.Close();

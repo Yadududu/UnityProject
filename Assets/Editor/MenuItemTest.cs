@@ -11,7 +11,7 @@ public class MenuItemTest {
 
     [MenuItem("GameObject/my delete", true, 11)]
     static bool MyDeleteValidate() {
-        if (Selection.objects.Length > 0) return true;
+        if (Selection.objects.Length > 2) return true;
         else return false;
     }
     [MenuItem("GameObject/my delete", false, 11)]

@@ -69,7 +69,7 @@ public class DateView : MonoBehaviour {
         display.text = display.text + "-" + num;
         monthTxt.text = num.ToString();
         _Month = num;
-        _Day = DateModel.Get.GetDay(_Year, _Month);
+        _Day = DateModel.GetDay(_Year, _Month);
         foreach (Button btn in dayBtn) {
             btn.gameObject.SetActive(false);
         }
