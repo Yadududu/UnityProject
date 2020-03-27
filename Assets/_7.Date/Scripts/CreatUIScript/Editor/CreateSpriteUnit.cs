@@ -27,14 +27,14 @@ public class @ClassName {
     }
 }
 ";
+
     //缓存的所有子对象信息
     public List<UIInfo> evenlist = new List<UIInfo>();
     /// <summary>
     /// 把拼接好的脚本写到本地。
-    /// （自己可以个窗口支持改名和选择路径，真实工程里是带这些功能的）
     /// </summary>
-    public void WtiteClass(string path) {
-        bool flag = true;
+    public void WriteClass(string path) {
+        bool flag = true;//省略 BOM
         bool throwOnInvalidBytes = false;
         UTF8Encoding encoding = new UTF8Encoding(flag, throwOnInvalidBytes);
         bool append = false;
@@ -63,5 +63,41 @@ public class @ClassName {
         template = template.Replace("@body2", body2.ToString()).Trim();
         template = template.Replace("@fields", fields.ToString()).Trim();
         return template;
+    }
+
+    /// <summary>
+    /// 把拼接好的脚本写到本地。
+    /// </summary>
+    public void WriteComponentClass(string path) {
+        string template = @"
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class @ClassName : MonoBehaviour { 
+@fields
+
+    private @ClassName() {
+@body1
+    }
+
+    public void Action() {
+
+    }
+}
+";
+        bool flag = true;//省略 BOM
+        bool throwOnInvalidBytes = false;
+        UTF8Encoding encoding = new UTF8Encoding(flag, throwOnInvalidBytes);
+        bool append = false;
+        if (File.Exists(Application.dataPath + "/" + classname + ".cs")) {
+            EditorUtility.DisplayDialog("警告", classname + ".cs文件已存在,请先删除" + classname + ".cs或者修改文件名再生成脚本", "确定");
+        } else {
+            //StreamWriter writer = new StreamWriter(Application.dataPath + "/" + classname + ".cs", append, encoding);
+            StreamWriter writer = new StreamWriter(path, append, encoding);
+            writer.Write(GetClasss());
+            writer.Close();
+            AssetDatabase.Refresh();
+        }
     }
 }

@@ -63,7 +63,7 @@ public class CreateSprite {
         }
         Debug.Log(path);
 
-        info.WtiteClass(path);
+        info.WriteClass(path);
         info = null;
         CurGo = null;
         typeMap.Clear();
