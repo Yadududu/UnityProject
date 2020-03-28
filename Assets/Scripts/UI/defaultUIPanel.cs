@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class defaultUIPanel {   
+public class DefaultUIPanel {   
 	public InputField Year_input;
 	public InputField Month_input;
 	public InputField Day_input;
@@ -23,7 +23,7 @@ public class defaultUIPanel {
 
 
     public void OnAwake(GameObject viewGO){
-        Year_input = viewGO.transform.Find("Background/Year_input").GetComponent<InputField>();
+		Year_input = viewGO.transform.Find("Background/Year_input").GetComponent<InputField>();
 		Month_input = viewGO.transform.Find("Background/Month_input").GetComponent<InputField>();
 		Day_input = viewGO.transform.Find("Background/Day_input").GetComponent<InputField>();
 		Sel_btn = viewGO.transform.Find("Sel_btn").GetComponent<Button>();

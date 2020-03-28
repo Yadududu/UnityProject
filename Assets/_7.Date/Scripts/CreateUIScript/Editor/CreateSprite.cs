@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,20 +51,25 @@ public class CreateSprite {
         info = new CreateSpriteUnit();
         CurGo = gameObjects[0];
         ReadChild(CurGo.transform);
-        info.classname = className + "UIPanel";
-
-        //判断路径是否包含类名
-        string[] str = path.Split('/');
-        if (str[str.Length - 1] == "") {
-            path = path + className + "UIPanel.cs";
-        } else if (str[str.Length - 1] == className) {
-            path = path + "UIPanel.cs";
-        } else if (str[str.Length - 1] != className) {
-            path = path + "/" + className + "UIPanel.cs";
+        
+        //判断路径是否正确
+        if (path.Contains("Assets")) {
+            string[] str = path.Split('/');
+            if (str[str.Length - 1] == "") {
+                path = path + className;
+            } else if (str[str.Length - 1] == className) {
+                //path = path + "UIPanel.cs";
+            } else if (str[str.Length - 1] != className) {
+                path = path + "/" + className;
+            }
+            Debug.Log("脚本生成路径：" + path);
+        } else {
+            EditorUtility.DisplayDialog("警告", "请把脚本保存到项目的Assets文件下!", "确定");
+            return;
         }
-        Debug.Log(path);
 
-        info.WriteClass(path);
+        info.WriteUIPanelClass(path, className);
+        if (creatComponentSign) info.WriteComponentClass(path, className, addComponentSign, CurGo);
         info = null;
         CurGo = null;
         typeMap.Clear();

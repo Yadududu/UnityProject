@@ -6,7 +6,7 @@ using System.IO;
 
 public class CreateUIScript : EditorWindow {
 
-    private string _ClassName = "default";
+    private string _ClassName = "Default";
     private string _Path= "Assets/Scripts/UI/";
     private Rect _Rect;
     private bool _CreatComponentSign = false;
