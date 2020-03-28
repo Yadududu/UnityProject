@@ -126,11 +126,11 @@ public class LoadAssetBundlesScene : MonoBehaviour {
         yield return requestScene.SendWebRequest();
         AssetBundle abScene = DownloadHandlerAssetBundle.GetContent(requestScene);
         assetBundle.Add(abScene);
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName,LoadSceneMode.Additive);
     }
-    [System.Serializable]
-    public class URIPath {
-        public string sceneName;
-        public string path;
-    }
+}
+[System.Serializable]
+struct URIPath {
+    public string sceneName;
+    public string path;
 }
