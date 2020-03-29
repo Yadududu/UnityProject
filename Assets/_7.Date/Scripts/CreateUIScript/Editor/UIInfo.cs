@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//子对象信息
+//UI元素信息
 public class UIInfo {
     public string field;
     public string body1;

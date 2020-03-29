@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultProgram : MonoBehaviour { 
-	public static DefaultProgram Get { get; private set; }
-	private DefaultUIPanel _UIPanel = new DefaultUIPanel();
+public class asProgram : MonoBehaviour { 
+	public static asProgram Get { get; private set; }
+	private asUIPanel _UIPanel = new asUIPanel();
 
 
-    private DefaultProgram() {
+    private asProgram() {
 		Get = this;
 
     }

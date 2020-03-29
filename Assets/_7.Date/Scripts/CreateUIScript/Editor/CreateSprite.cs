@@ -8,8 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class CreateSprite {
-    //当前操作的对象
-    private static GameObject CurGo;
+    
     //后缀对应的组件类型
     public static Dictionary<string, string> typeMap = new Dictionary<string, string>(){
         { "sp", typeof(Sprite).Name },
@@ -27,51 +26,34 @@ public class CreateSprite {
         { "pinput", typeof(TMP_InputField).Name },
         { "scr", typeof(ScrollRect).Name },
     };
+    //当前操作的对象
+    private static GameObject _CurGo;
     //脚本模版
-    private static CreateSpriteUnit info;
+    private static CreateSpriteUnit _Info;
     //保存已经创建的list名,避免重复创建
     private static List<string> _VarName = new List<string>();
-    //当前选择得GameObject
-    private static GameObject[] gameObjects;
 
-    //在Project窗口下，选中要导出的界面，然后点击GameObject/导出脚本
-    [MenuItem("GameObject/CreateUIScript", false, 11)]
-    public static void CreateSpriteAction() {
+    public static void CreateScript(GameObject obj, string className, string path, bool creatComponentSign, bool addComponentSign) {
+        _Info = new CreateSpriteUnit();
+        _CurGo = obj;
+        ReadChild(_CurGo.transform);
 
-        gameObjects = Selection.gameObjects;
-        //保证只有一个对象
-        if (gameObjects.Length == 1) {
-            CreateUIScript.ShowMyWindow();
-        } else {
-            EditorUtility.DisplayDialog("警告", "你只能选择一个GameObject", "确定");
-        }
-    }
-
-    public static void CreateScript(string className, string path, bool creatComponentSign, bool addComponentSign) {
-        info = new CreateSpriteUnit();
-        CurGo = gameObjects[0];
-        ReadChild(CurGo.transform);
-        
-        //判断路径是否正确
-        if (path.Contains("Assets")) {
-            string[] str = path.Split('/');
-            if (str[str.Length - 1] == "") {
-                path = path + className;
-            } else if (str[str.Length - 1] == className) {
-                //path = path + "UIPanel.cs";
-            } else if (str[str.Length - 1] != className) {
-                path = path + "/" + className;
+        //判断路径
+        string[] str = path.Split('/');
+        if (str[0].Equals("Assets")) {
+            if (!Directory.Exists(path)) {
+                Directory.CreateDirectory(path);
             }
-            Debug.Log("脚本生成路径：" + path);
         } else {
             EditorUtility.DisplayDialog("警告", "请把脚本保存到项目的Assets文件下!", "确定");
             return;
         }
+        Debug.Log("脚本生成路径：" + path);
 
-        info.WriteUIPanelClass(path, className);
-        if (creatComponentSign) info.WriteComponentClass(path, className, addComponentSign, CurGo);
-        info = null;
-        CurGo = null;
+        _Info.WriteUIPanelClass(path, className);
+        if (creatComponentSign) _Info.WriteComponentClass(path, className, addComponentSign, _CurGo);
+        _Info = null;
+        _CurGo = null;
         typeMap.Clear();
         _VarName.Clear();
     }
@@ -86,7 +68,7 @@ public class CreateSprite {
                 string typeKey = typeArr[typeArr.Length - 1];
                 string typeName = typeArr[typeArr.Length - 2];
                 if (typeMap.ContainsKey(typeKey)) {
-                    info.evenlist.Add(new UIInfo(child.name, typeKey, buildGameObjectPath(child).Replace(CurGo.name + "/", "")));
+                    _Info.evenlist.Add(new UIInfo(child.name, typeKey, buildGameObjectPath(child).Replace(buildGameObjectPath(_CurGo.transform) + "/", "")));
                     //Debug.Log(buildGameObjectPath(child));
                 }
 
@@ -105,7 +87,7 @@ public class CreateSprite {
                             _VarName.Add(typeName);
                             sign = false;
                         }
-                        info.evenlist.Add(new UIInfo(child.name, typeKey, buildGameObjectPath(child).Replace(CurGo.name + "/", ""), typeName, sign));
+                        _Info.evenlist.Add(new UIInfo(child.name, typeKey, buildGameObjectPath(child).Replace(buildGameObjectPath(_CurGo.transform) + "/", ""), typeName, sign));
                     }
                 }
             }

@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Linq;
+using System;
 using UnityEditor;
 using UnityEngine;
 
 //导出脚本的模版
 public class CreateSpriteUnit {
 
+    public static string generateClassName = "generateClassName";
+    public static string generateObjName = "generateObjName";
+
     //缓存的所有子对象信息
     public List<UIInfo> evenlist = new List<UIInfo>();
-
+    //脚本后缀名
     private string _UIPanelSuffix = "UIPanel";
     private string _ComponentSuffix = "Program";
     /// <summary>
@@ -22,7 +27,11 @@ public class CreateSpriteUnit {
         UTF8Encoding encoding = new UTF8Encoding(flag, throwOnInvalidBytes);
         bool append = false;
 
-        path = path + _UIPanelSuffix + ".cs";
+        if (path.Substring(path.Length - 1) == "/") {
+            path = path + className + _UIPanelSuffix + ".cs";
+        } else {
+            path = path +"/"+ className + _UIPanelSuffix + ".cs";
+        }
         string p = path.Replace("Assets", "");
         if (File.Exists(Application.dataPath + p)) {
             var falg = EditorUtility.DisplayDialog("提示", className + _ComponentSuffix + "脚本已经存在，是否要替换脚本？", "是", "否");
@@ -35,7 +44,6 @@ public class CreateSpriteUnit {
             }
         } else {
             //StreamWriter writer = new StreamWriter(Application.dataPath + "/" + classname + ".cs", append, encoding);
-
             StreamWriter writer = new StreamWriter(path, append, encoding);
             writer.Write(GetUIPanelClass(className));
             writer.Close();
@@ -84,15 +92,19 @@ public class @ClassName {
     /// <summary>
     /// 把拼接好的UI组件脚本写到本地。
     /// </summary>
-    public void WriteComponentClass(string path, string className, bool addComponentSign ,GameObject seleGO) {
+    public void WriteComponentClass(string path, string className, bool addComponentSign, GameObject seleGO) {
 
         string componentClassName = className + _ComponentSuffix;
-        bool flag = true;//省略 BOM
+        bool flag = true;//带 BOM
         bool throwOnInvalidBytes = false;
         UTF8Encoding encoding = new UTF8Encoding(flag, throwOnInvalidBytes);
         bool append = false;
         
-        path = path + _ComponentSuffix + ".cs";
+        if (path.Substring(path.Length - 1) == "/") {
+            path = path + className + _ComponentSuffix + ".cs";
+        } else {
+            path = path + "/" + className + _ComponentSuffix + ".cs";
+        }
         string p = path.Replace("Assets", "");
         if (File.Exists(Application.dataPath + p)) {
             EditorUtility.DisplayDialog("警告", className + "Program.cs文件已存在!此文件不能被替换，如想重新生成请手动删除源文件", "确定");
@@ -102,17 +114,44 @@ public class @ClassName {
             writer.Write(GetComponentClass(className, addComponentSign));
             writer.Close();
             AssetDatabase.Refresh();
-            
+            Debug.Log(componentClassName + "脚本已生成");
+            //判断是否挂载脚本
             if (addComponentSign) {
-                Debug.Log(!seleGO.GetComponent(componentClassName));
                 if (!seleGO.GetComponent(componentClassName)) {
-                    Debug.Log(seleGO.name);
-                    System.Type t = System.Type.GetType(componentClassName);
-                    seleGO.AddComponent(t);
+                    //把类名和gameobject名暂存起来
+                    EditorPrefs.SetString(generateClassName, componentClassName);
+                    EditorPrefs.SetString(generateObjName, seleGO.name);
                 }
             }
-            Debug.Log(componentClassName + "脚本已生成");
+
         }
+    }
+    //编辑完后自动回调
+    [UnityEditor.Callbacks.DidReloadScripts]
+    static void AddComponent2GameObject() {
+        string className = EditorPrefs.GetString(generateClassName);
+        string objName = EditorPrefs.GetString(generateObjName);
+        //Debug.Log(className);
+        //Debug.Log(objName);
+        if (string.IsNullOrEmpty(className)|| string.IsNullOrEmpty(objName)) {
+            return;
+        }
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+        var defaultAssembly = assemblies.First(assembly => assembly.GetName().Name == "Assembly-CSharp");
+        var type = defaultAssembly.GetType(className);
+        if (type == null) {
+            Debug.Log("编译失败");
+            return;
+        }
+
+        var gameObject = GameObject.Find(objName);
+        var scriptComponent = gameObject.GetComponent(type);
+        if (!scriptComponent) {
+            scriptComponent = gameObject.AddComponent(type);
+        }
+        EditorPrefs.DeleteKey(generateClassName);
+        EditorPrefs.DeleteKey(generateObjName);
+
     }
     //脚本拼接
     private string GetComponentClass(string className, bool addComponentSign) {

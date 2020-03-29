@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DefaultUIPanel {   
+public class asUIPanel {   
 	public InputField Year_input;
 	public InputField Month_input;
 	public InputField Day_input;
