@@ -22,6 +22,6 @@ public class EeditorModeRun : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        TemProgram.Get.SetText("123");
     }
 }
