@@ -19650,10 +19650,13 @@ MonoBehaviour:
   Month_input: {fileID: 506461053}
   Day_input: {fileID: 385210696}
   Sel_btn: {fileID: 427837882}
-  PopWindow_go: {fileID: 1540177726}
+  PopWin_go: {fileID: 1540177726}
   Display_txt: {fileID: 157158552}
   Back_btn: {fileID: 1334714119}
-  YearWin_go: {fileID: 1992956496}
+  Win_gos:
+  - {fileID: 1992956496}
+  - {fileID: 169670276}
+  - {fileID: 504178480}
   Year_btns:
   - {fileID: 1775757254}
   - {fileID: 1481983167}
@@ -19667,7 +19670,6 @@ MonoBehaviour:
   - {fileID: 903395528}
   Pre_btn: {fileID: 1819806280}
   Next_btn: {fileID: 1957205723}
-  MonthWin_go: {fileID: 169670276}
   Month_btns:
   - {fileID: 1817520747}
   - {fileID: 166896793}
@@ -19681,7 +19683,6 @@ MonoBehaviour:
   - {fileID: 686251046}
   - {fileID: 2098345125}
   - {fileID: 1189610089}
-  DayWin_go: {fileID: 504178480}
   Day_btns:
   - {fileID: 1249608866}
   - {fileID: 192951193}
