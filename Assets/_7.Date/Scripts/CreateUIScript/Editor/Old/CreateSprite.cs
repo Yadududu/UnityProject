@@ -7,27 +7,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace CreateUIScript {
+namespace CreateUIScriptOld {
     public class CreateSprite {
 
         //后缀对应的组件类型
         public static Dictionary<string, string> typeMap = new Dictionary<string, string>(){
-        { "sp", typeof(Sprite).Name },
-        { "go", typeof(GameObject).Name},
-        { "txt", typeof(Text).Name },
-        { "image", typeof(Image).Name },
-        { "btn", typeof(Button).Name },
-        { "tog", typeof(Toggle).Name },
-        { "sli", typeof(Slider).Name },
-        { "scb", typeof(Scrollbar).Name },
-        { "dro", typeof(Dropdown).Name },
-        { "input", typeof(InputField).Name },
-        { "scr", typeof(ScrollRect).Name },
-        { "3Dptxt", typeof(TextMeshPro).Name },
-        { "ptxt", typeof(TextMeshProUGUI).Name },
-        { "pdro", typeof(TMP_Dropdown).Name },
-        { "pinput", typeof(TMP_InputField).Name },
-    };
+            { "sp", typeof(Sprite).Name },
+            { "go", typeof(GameObject).Name},
+            { "txt", typeof(Text).Name },
+            { "image", typeof(Image).Name },
+            { "btn", typeof(Button).Name },
+            { "tog", typeof(Toggle).Name },
+            { "sli", typeof(Slider).Name },
+            { "scb", typeof(Scrollbar).Name },
+            { "dro", typeof(Dropdown).Name },
+            { "input", typeof(InputField).Name },
+            { "scr", typeof(ScrollRect).Name },
+            { "3Dptxt", typeof(TextMeshPro).Name },
+            { "ptxt", typeof(TextMeshProUGUI).Name },
+            { "pdro", typeof(TMP_Dropdown).Name },
+            { "pinput", typeof(TMP_InputField).Name },
+        };
         //当前操作的对象
         private static GameObject _CurGo;
         //脚本模版
@@ -35,7 +35,7 @@ namespace CreateUIScript {
         //保存已经创建的list名,避免重复创建
         private static List<string> _VarName = new List<string>();
 
-        public static void CreateScript(GameObject obj, string className, string path) {
+        public static void CreateScript(GameObject obj, string className, string path, bool creatComponentSign, bool addComponentSign) {
             _Info = new CreateSpriteUnit();
             _CurGo = obj;
             ReadChild(_CurGo.transform);
@@ -52,14 +52,15 @@ namespace CreateUIScript {
             }
             Debug.Log("脚本生成路径：" + path);
 
-            _Info.WriteUIPanelClass(path, className, _CurGo);
+            _Info.WriteUIPanelClass(path, className);
+            if (creatComponentSign) _Info.WriteComponentClass(path, className, addComponentSign, _CurGo);
             _Info = null;
             _CurGo = null;
             typeMap.Clear();
             _VarName.Clear();
         }
 
-        //遍历所有子对象
+        //遍历所有子对象，GetChild方法只能获取第一层子对象。
         public static void ReadChild(Transform tf) {
             foreach (Transform child in tf) {
 
@@ -111,5 +112,5 @@ namespace CreateUIScript {
             return buffer.ToString();
         }
     }
-
 }
+

@@ -32,30 +32,30 @@ public class AutoCreateComponentCode : Editor {
     }
 
     //编辑完后自动回调
-    [UnityEditor.Callbacks.DidReloadScripts]
-    static void AddComponent2GameObject() {
-        string className = EditorPrefs.GetString(generateClassName);
-        if (string.IsNullOrEmpty(className)) {
-            return;
-        }
+    //[UnityEditor.Callbacks.DidReloadScripts]
+    //static void AddComponent2GameObject() {
+    //    string className = EditorPrefs.GetString(generateClassName);
+    //    if (string.IsNullOrEmpty(className)) {
+    //        return;
+    //    }
 
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-        var defaultAssembly = assemblies.First(assembly => assembly.GetName().Name == "Assembly-CSharp");
+    //    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+    //    var defaultAssembly = assemblies.First(assembly => assembly.GetName().Name == "Assembly-CSharp");
 
-        var typeName = string.IsNullOrEmpty(ComponentTemplate.namespaceName) ? className : ComponentTemplate.namespaceName + "." + className;
-        var type = defaultAssembly.GetType(typeName);
-        if (type == null) {
-            Debug.Log("编译失败");
-            return;
-        }
+    //    var typeName = string.IsNullOrEmpty(ComponentTemplate.namespaceName) ? className : ComponentTemplate.namespaceName + "." + className;
+    //    var type = defaultAssembly.GetType(typeName);
+    //    if (type == null) {
+    //        Debug.Log("编译失败");
+    //        return;
+    //    }
 
-        var gameObject = GameObject.Find(className);
-        var scriptComponent = gameObject.GetComponent(type);
-        if (!scriptComponent) {
-            scriptComponent = gameObject.AddComponent(type);
-        }
-        EditorPrefs.DeleteKey(generateClassName);
-    }
+    //    var gameObject = GameObject.Find(className);
+    //    var scriptComponent = gameObject.GetComponent(type);
+    //    if (!scriptComponent) {
+    //        scriptComponent = gameObject.AddComponent(type);
+    //    }
+    //    EditorPrefs.DeleteKey(generateClassName);
+    //}
 
 }
 
