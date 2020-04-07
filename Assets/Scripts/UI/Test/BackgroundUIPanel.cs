@@ -17,6 +17,7 @@ public class BackgroundUIPanel : BaseUIPanel {
     public void Awake(){
         UIPanelManager.Instance.RegisterPanel(this.name, this);
         UIPanelManager.Instance.OnChangeTier.AddListener(ChangeTier);
+        Open();
     }
     public void Start() {
 

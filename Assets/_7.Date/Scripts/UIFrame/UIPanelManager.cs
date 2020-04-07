@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class UIPanelManager{
+public class UIPanelManager {
 
     private static UIPanelManager _instance;
     public static UIPanelManager Instance {
@@ -14,16 +14,16 @@ public class UIPanelManager{
             return _instance;
         }
     }
-    
+    public bool LockUI { get; set; }
     public UnityEvent OnChangeTier = new UnityEvent();
-    public Dictionary<string, BaseUIPanel> panelDict = new Dictionary<string, BaseUIPanel>();
+    private Dictionary<string, BaseUIPanel> panelDict = new Dictionary<string, BaseUIPanel>();
     private List<BaseUIPanel> panelList = new List<BaseUIPanel>();
 
     public void PushPanel(string panelType) {
-
+        if (LockUI) return;
         //停止上一个界面
         if (panelList.Count > 0) {
-            BaseUIPanel topPanel = panelList[panelList.Count-1];
+            BaseUIPanel topPanel = panelList[panelList.Count - 1];
             topPanel.OnPause();
         }
 
@@ -32,7 +32,7 @@ public class UIPanelManager{
         panel.OnEnter();
         OnChangeTier.Invoke();
     }
-    
+
     public void PopPanel(string panelType) {
         if (panelList.Count <= 0) {
             return;
@@ -73,7 +73,7 @@ public class UIPanelManager{
         return panel;
     }
 
-    public void RegisterPanel(string panelType,BaseUIPanel UIPanel) {
+    public void RegisterPanel(string panelType, BaseUIPanel UIPanel) {
         if (panelDict.ContainsKey(panelType)) {
             panelDict[panelType] = UIPanel;
         } else {
