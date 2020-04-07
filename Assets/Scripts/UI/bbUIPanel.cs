@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class bbUIPanel : MonoBehaviour {
+public class bbUIPanel : MonoBehaviour{   
     //--AutoCreateStart
 	public InputField Year_input;
 	public InputField Month_input;
@@ -19,16 +19,14 @@ public class bbUIPanel : MonoBehaviour {
 	public Button Next_btn;
 	public List<Button> Month_btns = new List<Button>();
 	public List<Button> Day_btns = new List<Button>();
-	//--AutoCreateEnd
 
-    public void Awake() {
+    //--AutoCreateEnd
+
+    public void Awake(){
 
     }
 
-    public void Start() {
+    public void Start(){
 
     }
 }
-
-
-
