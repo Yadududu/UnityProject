@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace CreateUIScript {
+namespace CreateUIScriptOld {
+
     public class CreateSpriteWin : EditorWindow {
 
         private string _ClassName = "";
         private string _Path = "Assets/Scripts/UI";
+        private bool _CreatComponentSign = false;
+        private bool _AddComponentSign = false;
         private static CreateSpriteWin _Window;
         //当前选择得GameObject
         private static GameObject[] _GameObjects;
 
-        [MenuItem("GameObject/Tool/CreateUIScript", false, 0)]
+        [MenuItem("GameObject/Tool/CreateUIScript_old", false, 0)]
         public static void ShowMyWindow() {
             _GameObjects = Selection.gameObjects;
             //保证只有一个对象
@@ -47,9 +50,16 @@ namespace CreateUIScript {
                 _Path = EditorUtility.SaveFilePanelInProject("选择路径", _ClassName, "", "");
             }
 
+            _CreatComponentSign = EditorGUILayout.Toggle("是否生成实现类:", _CreatComponentSign);
+            if (_CreatComponentSign) {
+                _AddComponentSign = EditorGUILayout.Toggle("是否挂载该GameObject上:", _AddComponentSign);
+            } else {
+                _AddComponentSign = false;
+            }
+
             if (GUILayout.Button("创建脚本")) {
                 if (_ClassName != "") {
-                    CreateSprite.CreateScript(_GameObjects[0], _ClassName, _Path);
+                    CreateSprite.CreateScript(_GameObjects[0], _ClassName, _Path, _CreatComponentSign, _AddComponentSign);
                     _Window.Close();
                 } else {
                     EditorUtility.DisplayDialog("警告", "名字不能为空!", "确定");
@@ -58,5 +68,4 @@ namespace CreateUIScript {
             }
         }
     }
-
 }
