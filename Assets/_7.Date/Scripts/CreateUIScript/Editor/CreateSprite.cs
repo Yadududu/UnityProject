@@ -18,6 +18,7 @@ namespace CreateUIScript {
         { "cang", typeof(CanvasGroup).Name},
         { "txt", typeof(Text).Name },
         { "image", typeof(Image).Name },
+        { "rimage", typeof(RawImage).Name },
         { "btn", typeof(Button).Name },
         { "tog", typeof(Toggle).Name },
         { "sli", typeof(Slider).Name },
