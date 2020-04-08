@@ -56,7 +56,7 @@ public class UIPanelManager {
     public int GetPanelTier(string panelType) {
         BaseUIPanel panel = GetPanel(panelType);
         if (panelList.Contains(panel)) {
-            return panelList.IndexOf(panel);
+            return panelList.IndexOf(panel) + 1;
         } else {
             return 0;
         }
@@ -75,5 +75,11 @@ public class UIPanelManager {
 
     public void RegisterPanel(string panelType, BaseUIPanel UIPanel) {
         panelDict[panelType] = UIPanel;
+    }
+
+    public void PrintKey() {
+        foreach (string str in panelDict.Keys) {
+            Debug.Log(str);
+        }
     }
 }

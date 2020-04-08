@@ -8,8 +8,16 @@ public class TestUI : MonoBehaviour {
     void Start() {
         //UIPanelManager.Instance.GetPanel("UI1").Win_go
         //UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel("UI1") as UI1UIPanel;
+        //Debug.Log(UIPanelManager.Instance.panelDict.Count);
+
+        //foreach (string b in UIPanelManager.Instance.panelDict.Keys) {
+        //    Debug.Log(b);
+        //}
+        //foreach (BaseUIPanel b in UIPanelManager.Instance.panelDict.Values) {
+        //    Debug.Log(b);
+        //}
     }
-    
+
     void Update() {
         if (boo) {
             UIPanelManager.Instance.LockUI = boo;

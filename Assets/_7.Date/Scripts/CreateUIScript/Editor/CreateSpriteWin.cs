@@ -12,7 +12,7 @@ namespace CreateUIScript {
         //当前选择得GameObject
         private static GameObject[] _GameObjects;
 
-        [MenuItem("GameObject/Tool/CreateUIScript", false, 0)]
+        [MenuItem("GameObject/Zeus/创建脚本", false, 0)]
         public static void ShowMyWindow() {
             _GameObjects = Selection.gameObjects;
             //保证只有一个对象

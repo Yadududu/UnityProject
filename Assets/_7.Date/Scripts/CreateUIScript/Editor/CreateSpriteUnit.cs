@@ -84,29 +84,29 @@ public class @ClassName : BaseUIPanel{
     //--AutoCreateEnd
 
     public void Awake(){
-
+        UIPanelManager.Instance.RegisterPanel(this.name, this);
     }
 
     public void Start(){
 
     }
-    public override void Open() {
-        throw new System.NotImplementedException();
+    public void Open() {
+        UIPanelManager.Instance.PushPanel(this.name);
     }
-    public override void Close() {
-        throw new System.NotImplementedException();
+    public void Close() {
+        UIPanelManager.Instance.PopPanel(this.name);
     }
     public override void OnEnter() {
-        throw new System.NotImplementedException();
+        
     }
     public override void OnExit() {
-        throw new System.NotImplementedException();
+        
     }
     public override void OnPause() {
-        throw new System.NotImplementedException();
+        
     }
     public override void OnResume() {
-        throw new System.NotImplementedException();
+        
     }
 }
 ";
@@ -170,7 +170,7 @@ public class @ClassName : BaseUIPanel{
 
         //编辑完后自动回调
         [UnityEditor.Callbacks.DidReloadScripts]
-        static void AddComponent2GameObject() {
+        static void AddComponentToGameObject() {
             string className = EditorPrefs.GetString(generateClassName);
             string objName = EditorPrefs.GetString(generateObjName);
             string varPath = EditorPrefs.GetString(generateVarPath);

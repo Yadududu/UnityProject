@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074440034}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c95ba560f20cfd46a19a5b65222a783, type: 3}
   m_Name: 
@@ -2918,7 +2918,9 @@ MonoBehaviour:
   Win_go: {fileID: 1528422085}
   UI11_btn: {fileID: 502681323}
   UI12_btn: {fileID: 1482604122}
-  Win_gos: []
+  Win2_gos:
+  - {fileID: 928286645}
+  - {fileID: 1308999556}
 --- !u!1 &1838678014
 GameObject:
   m_ObjectHideFlags: 0
