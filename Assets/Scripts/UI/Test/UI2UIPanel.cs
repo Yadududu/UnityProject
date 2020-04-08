@@ -17,18 +17,24 @@ public class UI2UIPanel : BaseUIPanel {
         UIPanelManager.Instance.RegisterPanel(this.name, this);
         UIPanelManager.Instance.OnChangeTier.AddListener(ChangeTier);
         UI2_btn.onClick.AddListener(Close);
+        
     }
     public void Start() {
 
     }
+
+    public void print() {
+        Debug.Log("我是方法2");
+    }
+
     public override void Open() {
-        UIPanelManager.Instance.PushPanel(this.name);
+        UIPanelManager.Instance.PushPanel(this);
     }
     public override void Close() {
-        UIPanelManager.Instance.PopPanel(this.name);
+        UIPanelManager.Instance.PopPanel(this);
     }
     private void ChangeTier() {
-        Canvas.sortingOrder = UIPanelManager.Instance.GetPanelTier(this.name);
+        Canvas.sortingOrder = UIPanelManager.Instance.GetPanelTier(this);
     }
     public override void OnEnter() {
         Win_go.SetActive(true);

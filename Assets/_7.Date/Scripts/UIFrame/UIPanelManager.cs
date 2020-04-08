@@ -16,10 +16,9 @@ public class UIPanelManager {
     }
     public bool LockUI { get; set; }
     public UnityEvent OnChangeTier = new UnityEvent();
-    private Dictionary<string, BaseUIPanel> panelDict = new Dictionary<string, BaseUIPanel>();
     private List<BaseUIPanel> panelList = new List<BaseUIPanel>();
 
-    public void PushPanel(string panelType) {
+    public void PushPanel(BaseUIPanel panel) {
         if (LockUI) return;
         //停止上一个界面
         if (panelList.Count > 0) {
@@ -27,17 +26,17 @@ public class UIPanelManager {
             topPanel.OnPause();
         }
 
-        BaseUIPanel panel = GetPanel(panelType);
+        //BaseUIPanel panel = GetPanel<BaseUIPanel>(panelType);
         panelList.Add(panel);
         panel.OnEnter();
         OnChangeTier.Invoke();
     }
 
-    public void PopPanel(string panelType) {
+    public void PopPanel(BaseUIPanel panel) {
         if (panelList.Count <= 0) {
             return;
         }
-        BaseUIPanel panel = GetPanel(panelType);
+        //BaseUIPanel panel = GetPanel<BaseUIPanel>(panelType);
 
         //从列表中删除面板
         if (panelList.Contains(panel)) {
@@ -53,8 +52,8 @@ public class UIPanelManager {
         }
         OnChangeTier.Invoke();
     }
-    public int GetPanelTier(string panelType) {
-        BaseUIPanel panel = GetPanel(panelType);
+    public int GetPanelTier(BaseUIPanel panel) {
+        //BaseUIPanel panel = GetPanel<BaseUIPanel>(panelType);
         if (panelList.Contains(panel)) {
             return panelList.IndexOf(panel) + 1;
         } else {
@@ -62,24 +61,11 @@ public class UIPanelManager {
         }
     }
 
-    public BaseUIPanel GetPanel(string panelType) {
-
-        BaseUIPanel panel = null;
-
-        if (panelDict.ContainsKey(panelType)) {
-            panel = panelDict[panelType];
-        }
-
-        return panel;
+    public T GetPanel<T>(string panelType) {
+        return PanelStore<T>.GetPanel(panelType);
     }
 
-    public void RegisterPanel(string panelType, BaseUIPanel UIPanel) {
-        panelDict[panelType] = UIPanel;
-    }
-
-    public void PrintKey() {
-        foreach (string str in panelDict.Keys) {
-            Debug.Log(str);
-        }
+    public void RegisterPanel<T>(string panelType, T UIPanel) {
+        PanelStore<T>.RegisterPanel(panelType, UIPanel);
     }
 }

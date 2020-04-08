@@ -2912,15 +2912,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62830f54c96d4a4ba115cd0ca1148c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 0}
-  CanvasGroup: {fileID: 0}
+  Canvas: {fileID: 672063414}
+  CanvasGroup: {fileID: 672063416}
   UI1_can: {fileID: 672063414}
   Win_go: {fileID: 1528422085}
   UI11_btn: {fileID: 502681323}
   UI12_btn: {fileID: 1482604122}
-  Win2_gos:
-  - {fileID: 928286645}
-  - {fileID: 1308999556}
+  Win2_gos: []
 --- !u!1 &1838678014
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class TestPanel : BaseUIPanel {
     }
 
     public override void Open() {
-        UIPanelManager.Instance.PushPanel(this.name);
+        //UIPanelManager.Instance.PushPanel(this.name);
     }
     public override void Close() {
         //UIPanelManager.Instance.PopPanel();

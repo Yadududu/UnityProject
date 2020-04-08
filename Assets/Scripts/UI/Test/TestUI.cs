@@ -16,6 +16,9 @@ public class TestUI : MonoBehaviour {
         //foreach (BaseUIPanel b in UIPanelManager.Instance.panelDict.Values) {
         //    Debug.Log(b);
         //}
+        //UIPanelManager.Instance.GetPanel<BaseUIPanel>("UI1");
+        UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1");
+        PanelStore<UI1UIPanel>.RegisterPanel("123", ui1);
     }
 
     void Update() {
@@ -23,7 +26,7 @@ public class TestUI : MonoBehaviour {
             UIPanelManager.Instance.LockUI = boo;
         }
         if (Input.GetKeyDown(KeyCode.F1)) {
-            UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel("UI1") as UI1UIPanel;
+            UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1");
             if (ui1.Win_go.activeInHierarchy) {
                 ui1.Close();
             } else {
@@ -31,7 +34,7 @@ public class TestUI : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.F2)) {
-            UI2UIPanel ui2 = UIPanelManager.Instance.GetPanel("UI2") as UI2UIPanel;
+            UI2UIPanel ui2 = UIPanelManager.Instance.GetPanel<UI2UIPanel>("UI2");
             if (ui2.Win_go.activeInHierarchy) {
                 ui2.Close();
             } else {
@@ -39,7 +42,7 @@ public class TestUI : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.F3)) {
-            UI3UIPanel ui3 = UIPanelManager.Instance.GetPanel("UI3") as UI3UIPanel;
+            UI3UIPanel ui3 = UIPanelManager.Instance.GetPanel<UI3UIPanel>("UI3");
             if (ui3.Win_go.activeInHierarchy) {
                 ui3.Close();
             } else {

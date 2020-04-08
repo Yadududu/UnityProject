@@ -23,13 +23,13 @@ public class BackgroundUIPanel : BaseUIPanel {
 
     }
     public override void Open() {
-        UIPanelManager.Instance.PushPanel(this.name);
+        UIPanelManager.Instance.PushPanel(this);
     }
     public override void Close() {
-        UIPanelManager.Instance.PopPanel(this.name);
+        UIPanelManager.Instance.PopPanel(this);
     }
     private void ChangeTier() {
-        Canvas.sortingOrder = UIPanelManager.Instance.GetPanelTier(this.name);
+        Canvas.sortingOrder = UIPanelManager.Instance.GetPanelTier(this);
     }
     public override void OnEnter() {
         Win_go.SetActive(true);
