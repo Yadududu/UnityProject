@@ -14,10 +14,10 @@ public class TestPanel : BaseUIPanel {
 
     }
 
-    public void Open() {
+    public override void Open() {
         UIPanelManager.Instance.PushPanel(this.name);
     }
-    public void Close() {
+    public override void Close() {
         //UIPanelManager.Instance.PopPanel();
     }
 

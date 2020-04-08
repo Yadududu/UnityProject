@@ -14,6 +14,8 @@ namespace CreateUIScript {
         public static Dictionary<string, string> typeMap = new Dictionary<string, string>(){
         { "sp", typeof(Sprite).Name },
         { "go", typeof(GameObject).Name},
+        { "can", typeof(Canvas).Name},
+        { "cang", typeof(CanvasGroup).Name},
         { "txt", typeof(Text).Name },
         { "image", typeof(Image).Name },
         { "btn", typeof(Button).Name },

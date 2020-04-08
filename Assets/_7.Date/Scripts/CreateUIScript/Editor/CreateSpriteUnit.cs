@@ -78,7 +78,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class @ClassName : MonoBehaviour{   
+public class @ClassName : BaseUIPanel{   
     //--AutoCreateStart
 @fields
     //--AutoCreateEnd
@@ -89,6 +89,24 @@ public class @ClassName : MonoBehaviour{
 
     public void Start(){
 
+    }
+    public override void Open() {
+        throw new System.NotImplementedException();
+    }
+    public override void Close() {
+        throw new System.NotImplementedException();
+    }
+    public override void OnEnter() {
+        throw new System.NotImplementedException();
+    }
+    public override void OnExit() {
+        throw new System.NotImplementedException();
+    }
+    public override void OnPause() {
+        throw new System.NotImplementedException();
+    }
+    public override void OnResume() {
+        throw new System.NotImplementedException();
     }
 }
 ";
@@ -162,7 +180,7 @@ public class @ClassName : MonoBehaviour{
             if (string.IsNullOrEmpty(className) || string.IsNullOrEmpty(objName) || string.IsNullOrEmpty(varPath)) {
                 return;
             }
-            
+
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var defaultAssembly = assemblies.First(assembly => assembly.GetName().Name == "Assembly-CSharp");
             var type = defaultAssembly.GetType(className);
@@ -187,36 +205,38 @@ public class @ClassName : MonoBehaviour{
             }
 
             foreach (var item in scriptComponent.GetType().GetFields()) {
-
-                if (item.FieldType.Name.Equals("List`1")) {
-                    Type fieldType = item.FieldType;
-                    object entityList = Activator.CreateInstance(fieldType);
-                    MethodInfo methodInfo = fieldType.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
-                    //获取该列表元素的所有地址
-                    string[] paths = dic[item.Name].Split(',');
-                    if (fieldType.GetGenericArguments()[0].Name.Equals("GameObject")) {
-                        for (int i = 0; i < paths.Length; i++) {
-                            //Debug.Log(paths[i]);
-                            methodInfo.Invoke(entityList, new object[] {
+                if (dic.ContainsKey(item.Name)) {
+                    if (item.FieldType.Name.Equals("List`1")) {
+                        Type fieldType = item.FieldType;
+                        object entityList = Activator.CreateInstance(fieldType);
+                        MethodInfo methodInfo = fieldType.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
+                        //获取该列表元素的所有地址
+                        string[] paths = dic[item.Name].Split(',');
+                        if (fieldType.GetGenericArguments()[0].Name.Equals("GameObject")) {
+                            for (int i = 0; i < paths.Length; i++) {
+                                //Debug.Log(paths[i]);
+                                methodInfo.Invoke(entityList, new object[] {
                             gameObject.transform.Find(paths[i]).gameObject
                         });
-                        }
-                    } else {
-                        for (int i = 0; i < paths.Length; i++) {
-                            //Debug.Log(paths[i]);
-                            methodInfo.Invoke(entityList, new object[] {
+                            }
+                        } else {
+                            for (int i = 0; i < paths.Length; i++) {
+                                //Debug.Log(paths[i]);
+                                methodInfo.Invoke(entityList, new object[] {
                             gameObject.transform.Find(paths[i]).GetComponent(fieldType.GetGenericArguments()[0].Name)
                         });
+                            }
                         }
+                        item.SetValue(scriptComponent, entityList);
+                    } else if (item.FieldType.Name.Equals("GameObject")) {
+                        //Debug.Log(item.Name);
+                        item.SetValue(scriptComponent, gameObject.transform.Find(dic[item.Name]).gameObject);
+                    } else {
+                        //Debug.Log(item.Name);
+                        item.SetValue(scriptComponent, gameObject.transform.Find(dic[item.Name]).GetComponent(item.FieldType.Name));
                     }
-                    item.SetValue(scriptComponent, entityList);
-                } else if (item.FieldType.Name.Equals("GameObject")) {
-                    item.SetValue(scriptComponent, gameObject.transform.Find(dic[item.Name]).gameObject);
-                } else {
-                    item.SetValue(scriptComponent, gameObject.transform.Find(dic[item.Name]).GetComponent(item.FieldType.Name));
                 }
             }
-
             EditorPrefs.DeleteKey(generateClassName);
             EditorPrefs.DeleteKey(generateObjName);
             EditorPrefs.DeleteKey(generateVarPath);

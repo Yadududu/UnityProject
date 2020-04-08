@@ -19,8 +19,7 @@ public class bbUIPanel : MonoBehaviour{
 	public Button Next_btn;
 	public List<Button> Month_btns = new List<Button>();
 	public List<Button> Day_btns = new List<Button>();
-
-    //--AutoCreateEnd
+	//--AutoCreateEnd
 
     public void Awake(){
 
@@ -30,3 +29,4 @@ public class bbUIPanel : MonoBehaviour{
 
     }
 }
+

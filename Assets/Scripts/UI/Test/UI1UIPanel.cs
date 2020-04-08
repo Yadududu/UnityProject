@@ -9,9 +9,11 @@ public class UI1UIPanel : BaseUIPanel {
     public Canvas Canvas;
     public CanvasGroup CanvasGroup;
     //--AutoCreateStart
-    public GameObject Win_go;
+	public Canvas UI1_can;
+	public GameObject Win_go;
 	public Button UI11_btn;
 	public Button UI12_btn;
+	public List<GameObject> Win2_gos = new List<GameObject>();
 	//--AutoCreateEnd
 
     public void Awake() {
@@ -24,10 +26,10 @@ public class UI1UIPanel : BaseUIPanel {
 
     }
 
-    public void Open() {
+    public override void Open() {
         UIPanelManager.Instance.PushPanel(this.name);
     }
-    public void Close() {
+    public override void Close() {
         UIPanelManager.Instance.PopPanel(this.name);
     }
     private void ChangeTier() {
@@ -51,5 +53,20 @@ public class UI1UIPanel : BaseUIPanel {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

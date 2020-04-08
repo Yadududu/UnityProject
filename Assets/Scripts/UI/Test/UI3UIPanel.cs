@@ -22,10 +22,10 @@ public class UI3UIPanel : BaseUIPanel {
     public void Start() {
 
     }
-    public void Open() {
+    public override void Open() {
         UIPanelManager.Instance.PushPanel(this.name);
     }
-    public void Close() {
+    public override void Close() {
         UIPanelManager.Instance.PopPanel(this.name);
     }
     private void ChangeTier() {

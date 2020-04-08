@@ -74,10 +74,6 @@ public class UIPanelManager {
     }
 
     public void RegisterPanel(string panelType, BaseUIPanel UIPanel) {
-        if (panelDict.ContainsKey(panelType)) {
-            panelDict[panelType] = UIPanel;
-        } else {
-            panelDict.Add(panelType, UIPanel);
-        }
+        panelDict[panelType] = UIPanel;
     }
 }
