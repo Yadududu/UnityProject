@@ -17,8 +17,9 @@ public class TestUI : MonoBehaviour {
         //    Debug.Log(b);
         //}
         //UIPanelManager.Instance.GetPanel<BaseUIPanel>("UI1");
-        UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1");
-        PanelStore<UI1UIPanel>.RegisterPanel("123", ui1);
+        //BaseUIPanel ui1 = UIPanelManager.Instance.GetPanel<BaseUIPanel>("UI1");
+        //PanelStore<UI1UIPanel>.RegisterPanel("123", ui1);
+        //UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1").Open()
     }
 
     void Update() {

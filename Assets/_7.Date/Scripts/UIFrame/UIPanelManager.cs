@@ -17,6 +17,7 @@ public class UIPanelManager {
     public bool LockUI { get; set; }
     public UnityEvent OnChangeTier = new UnityEvent();
     private List<BaseUIPanel> panelList = new List<BaseUIPanel>();
+    
 
     public void PushPanel(BaseUIPanel panel) {
         if (LockUI) return;
@@ -25,8 +26,7 @@ public class UIPanelManager {
             BaseUIPanel topPanel = panelList[panelList.Count - 1];
             topPanel.OnPause();
         }
-
-        //BaseUIPanel panel = GetPanel<BaseUIPanel>(panelType);
+        
         panelList.Add(panel);
         panel.OnEnter();
         OnChangeTier.Invoke();
@@ -36,7 +36,6 @@ public class UIPanelManager {
         if (panelList.Count <= 0) {
             return;
         }
-        //BaseUIPanel panel = GetPanel<BaseUIPanel>(panelType);
 
         //从列表中删除面板
         if (panelList.Contains(panel)) {
@@ -53,7 +52,7 @@ public class UIPanelManager {
         OnChangeTier.Invoke();
     }
     public int GetPanelTier(BaseUIPanel panel) {
-        //BaseUIPanel panel = GetPanel<BaseUIPanel>(panelType);
+
         if (panelList.Contains(panel)) {
             return panelList.IndexOf(panel) + 1;
         } else {

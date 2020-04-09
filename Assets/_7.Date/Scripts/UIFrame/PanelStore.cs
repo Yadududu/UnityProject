@@ -10,9 +10,11 @@ public static class PanelStore<T> {
 
         T panel = default(T);
 
-        //if (panelDict.ContainsKey(panelType)) {
+        if (panelDict.ContainsKey(panelType)) {
             panel = panelDict[panelType];
-        //}
+        } else {
+            throw new System.Exception("找不到键值(" + panelType + ")");
+        }
 
         return panel;
     }

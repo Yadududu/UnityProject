@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace CreateUIScript {
+namespace Zeus.UITemplate {
     public class CreateSprite {
 
         //后缀对应的组件类型

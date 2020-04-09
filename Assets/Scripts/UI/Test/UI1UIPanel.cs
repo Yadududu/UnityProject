@@ -17,7 +17,8 @@ public class UI1UIPanel : BaseUIPanel {
 	//--AutoCreateEnd
 
     public void Awake() {
-        UIPanelManager.Instance.RegisterPanel(this.name, GetComponent<UI1UIPanel>());
+        //UIPanelManager.Instance.RegisterPanel(this.name, GetComponent<UI1UIPanel>());
+        PanelStore<UI1UIPanel>.RegisterPanel(this.name, GetComponent<UI1UIPanel>());
         UIPanelManager.Instance.OnChangeTier.AddListener(ChangeTier);
         UI11_btn.onClick.AddListener(Close);
         
@@ -30,7 +31,8 @@ public class UI1UIPanel : BaseUIPanel {
         Debug.Log("我是方法1");
     }
 
-    public override void Open() {
+    public void Open(string str) {
+        Debug.Log(str);
         UIPanelManager.Instance.PushPanel(this);
     }
     public override void Close() {

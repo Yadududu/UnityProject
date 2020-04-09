@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CreateUIScript {
+namespace Zeus.UITemplate {
     //UI元素信息
     public class UIInfo {
         public string varName;

@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Reflection;
 
-namespace CreateUIScript {
+namespace Zeus.UITemplate {
     //导出脚本的模版
     public class CreateSpriteUnit {
 
@@ -84,6 +84,7 @@ public class @ClassName : BaseUIPanel{
     //--AutoCreateEnd
 
     public void Awake(){
+        //注册入UIPanelManager
         UIPanelManager.Instance.RegisterPanel(this.name, this);
     }
 
@@ -91,20 +92,26 @@ public class @ClassName : BaseUIPanel{
 
     }
     public void Open() {
-        UIPanelManager.Instance.PushPanel(this.name);
+        //加入队列
+        UIPanelManager.Instance.PushPanel(this);
     }
-    public void Close() {
-        UIPanelManager.Instance.PopPanel(this.name);
+    public override void Close() {
+        //跳出队列
+        UIPanelManager.Instance.PopPanel(this);
     }
+    //UI启动时执行
     public override void OnEnter() {
         
     }
+    //UI退出时执行
     public override void OnExit() {
         
     }
+    //UI暂停时执行
     public override void OnPause() {
         
     }
+    //UI恢复时执行
     public override void OnResume() {
         
     }

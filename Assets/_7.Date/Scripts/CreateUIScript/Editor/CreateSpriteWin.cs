@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace CreateUIScript {
+namespace Zeus.UITemplate {
     public class CreateSpriteWin : EditorWindow {
 
         private string _ClassName = "";
