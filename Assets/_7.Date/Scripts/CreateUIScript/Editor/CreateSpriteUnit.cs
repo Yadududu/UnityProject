@@ -86,6 +86,7 @@ public class @ClassName : BaseUIPanel{
     public void Awake(){
         //注册入UIPanelManager
         UIPanelManager.Instance.RegisterPanel(this.name, this);
+        @setCanvas1
     }
 
     public void Start(){
@@ -101,23 +102,26 @@ public class @ClassName : BaseUIPanel{
     }
     //UI启动时执行
     public override void OnEnter() {
-        
+        @setCanvas2
+        @setCanvasGroup1
     }
     //UI退出时执行
     public override void OnExit() {
-        
+        @setCanvas3
     }
     //UI暂停时执行
     public override void OnPause() {
-        
+        @setCanvasGroup2
     }
     //UI恢复时执行
     public override void OnResume() {
-        
+        @setCanvasGroup3
     }
 }
 ";
             var fields = new StringBuilder();
+            string canvasName = "";
+            string canvasGroupName = "";
             string panelClassName = className + _UIPanelSuffix;
 
             for (int i = 0; i < evenlist.Count; i++) {
@@ -129,9 +133,29 @@ public class @ClassName : BaseUIPanel{
                 }
                 if (evenlist[i].field != null) fields.AppendLine("\t" + evenlist[i].field);
                 //Debug.Log(evenlist[i].field);
+                if (evenlist[i].canvasName != null) canvasName = evenlist[i].canvasName;
+                if (evenlist[i].canvasGroupName != null) canvasGroupName = evenlist[i].canvasGroupName;
             }
             template = template.Replace("@ClassName", panelClassName).Trim();
             template = template.Replace("@fields", fields.ToString()).Trim();
+            if (canvasName != "") {
+                template = template.Replace("@setCanvas1", "UIPanelManager.Instance.OnChangeTier.AddListener(()=>" + canvasName + ".sortingOrder = UIPanelManager.Instance.GetPanelTier(this));").Trim();
+                template = template.Replace("@setCanvas2", canvasName + ".gameObject.SetActive(true);").Trim();
+                template = template.Replace("@setCanvas3", canvasName + ".gameObject.SetActive(false);").Trim();
+            } else {
+                template = template.Replace("@setCanvas1", "").Trim();
+                template = template.Replace("@setCanvas2", "").Trim();
+                template = template.Replace("@setCanvas3", "").Trim();
+            }
+            if (canvasGroupName != "") {
+                template = template.Replace("@setCanvasGroup1", canvasGroupName + ".blocksRaycasts = true;").Trim();
+                template = template.Replace("@setCanvasGroup2", canvasGroupName + ".blocksRaycasts = false;").Trim();
+                template = template.Replace("@setCanvasGroup3", canvasGroupName + ".blocksRaycasts = true;").Trim();
+            } else {
+                template = template.Replace("@setCanvasGroup1", "").Trim();
+                template = template.Replace("@setCanvasGroup2", "").Trim();
+                template = template.Replace("@setCanvasGroup3", "").Trim();
+            }
             return template;
         }
 

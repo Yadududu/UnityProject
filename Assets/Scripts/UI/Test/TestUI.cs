@@ -28,7 +28,7 @@ public class TestUI : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.F1)) {
             UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1");
-            if (ui1.Win_go.activeInHierarchy) {
+            if (ui1.UI11_can.gameObject.activeInHierarchy) {
                 ui1.Close();
             } else {
                 ui1.Open();
@@ -36,7 +36,7 @@ public class TestUI : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.F2)) {
             UI2UIPanel ui2 = UIPanelManager.Instance.GetPanel<UI2UIPanel>("UI2");
-            if (ui2.Win_go.activeInHierarchy) {
+            if (ui2.UI2_can.gameObject.activeInHierarchy) {
                 ui2.Close();
             } else {
                 ui2.Open();
@@ -44,7 +44,7 @@ public class TestUI : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.F3)) {
             UI3UIPanel ui3 = UIPanelManager.Instance.GetPanel<UI3UIPanel>("UI3");
-            if (ui3.Win_go.activeInHierarchy) {
+            if (ui3.UI3_can.gameObject.activeInHierarchy) {
                 ui3.Close();
             } else {
                 ui3.Open();

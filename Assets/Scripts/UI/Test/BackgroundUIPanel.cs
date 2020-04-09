@@ -22,7 +22,7 @@ public class BackgroundUIPanel : BaseUIPanel {
     public void Start() {
 
     }
-    public override void Open() {
+    public void Open() {
         UIPanelManager.Instance.PushPanel(this);
     }
     public override void Close() {

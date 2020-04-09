@@ -4,75 +4,50 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UI1UIPanel : BaseUIPanel {
-
-    public Canvas Canvas;
-    public CanvasGroup CanvasGroup;
+public class UI1UIPanel : BaseUIPanel{   
     //--AutoCreateStart
-	public Canvas UI1_can;
+	public Canvas UI11_can;
+	public CanvasGroup UI1_cang;
 	public GameObject Win_go;
 	public Button UI11_btn;
 	public Button UI12_btn;
 	public List<GameObject> Win2_gos = new List<GameObject>();
-	//--AutoCreateEnd
 
-    public void Awake() {
-        //UIPanelManager.Instance.RegisterPanel(this.name, GetComponent<UI1UIPanel>());
-        PanelStore<UI1UIPanel>.RegisterPanel(this.name, GetComponent<UI1UIPanel>());
-        UIPanelManager.Instance.OnChangeTier.AddListener(ChangeTier);
+    //--AutoCreateEnd
+
+    public void Awake(){
+        //注册入UIPanelManager
+        UIPanelManager.Instance.RegisterPanel(this.name, this);
+        UIPanelManager.Instance.OnChangeTier.AddListener(()=>UI11_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
         UI11_btn.onClick.AddListener(Close);
-        
     }
 
-    public void Start() {
+    public void Start(){
 
     }
-    public void print() {
-        Debug.Log("我是方法1");
-    }
-
-    public void Open(string str) {
-        Debug.Log(str);
+    public void Open() {
+        //加入队列
         UIPanelManager.Instance.PushPanel(this);
     }
     public override void Close() {
+        //跳出队列
         UIPanelManager.Instance.PopPanel(this);
     }
-    private void ChangeTier() {
-        Canvas.sortingOrder = UIPanelManager.Instance.GetPanelTier(this);
-    }
+    //UI启动时执行
     public override void OnEnter() {
-        Win_go.SetActive(true);
-        CanvasGroup.blocksRaycasts = true;
+        UI11_can.gameObject.SetActive(true);
+        UI1_cang.blocksRaycasts = true;
     }
-
+    //UI退出时执行
     public override void OnExit() {
-        Win_go.SetActive(false);
+        UI11_can.gameObject.SetActive(false);
     }
-
+    //UI暂停时执行
     public override void OnPause() {
-        CanvasGroup.blocksRaycasts = false;
+        UI1_cang.blocksRaycasts = false;
     }
-
+    //UI恢复时执行
     public override void OnResume() {
-        CanvasGroup.blocksRaycasts = true;
+        UI1_cang.blocksRaycasts = true;
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,50 +4,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UI3UIPanel : BaseUIPanel {
-
-    public Canvas Canvas;
-    public CanvasGroup CanvasGroup;
+public class UI3UIPanel : BaseUIPanel{   
     //--AutoCreateStart
-    public GameObject Win_go;
+	public Canvas UI3_can;
+	public CanvasGroup Win_cang;
 	public TextMeshProUGUI UI3_ptxt;
 	public Button UI3_btn;
-	//--AutoCreateEnd
+
+    //--AutoCreateEnd
 
     public void Awake(){
+        //注册入UIPanelManager
         UIPanelManager.Instance.RegisterPanel(this.name, this);
-        UIPanelManager.Instance.OnChangeTier.AddListener(ChangeTier);
+        UIPanelManager.Instance.OnChangeTier.AddListener(()=>UI3_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
         UI3_btn.onClick.AddListener(Close);
     }
-    public void Start() {
+
+    public void Start(){
 
     }
-    public override void Open() {
+    public void Open() {
+        //加入队列
         UIPanelManager.Instance.PushPanel(this);
     }
     public override void Close() {
+        //跳出队列
         UIPanelManager.Instance.PopPanel(this);
     }
-    private void ChangeTier() {
-        Canvas.sortingOrder = UIPanelManager.Instance.GetPanelTier(this);
-    }
+    //UI启动时执行
     public override void OnEnter() {
-        Win_go.SetActive(true);
-        CanvasGroup.blocksRaycasts = true;
+        UI3_can.gameObject.SetActive(true);
+        Win_cang.blocksRaycasts = true;
     }
-
+    //UI退出时执行
     public override void OnExit() {
-        Win_go.SetActive(false);
+        UI3_can.gameObject.SetActive(false);
     }
-
+    //UI暂停时执行
     public override void OnPause() {
-        CanvasGroup.blocksRaycasts = false;
+        Win_cang.blocksRaycasts = false;
     }
-
+    //UI恢复时执行
     public override void OnResume() {
-        CanvasGroup.blocksRaycasts = true;
+        Win_cang.blocksRaycasts = true;
     }
-
-
 }
-
