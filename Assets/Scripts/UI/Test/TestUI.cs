@@ -20,36 +20,39 @@ public class TestUI : MonoBehaviour {
         //BaseUIPanel ui1 = UIPanelManager.Instance.GetPanel<BaseUIPanel>("UI1");
         //PanelStore<UI1UIPanel>.RegisterPanel("123", ui1);
         //UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1").Open()
+
+        //开启快捷键
+        UIPanelManager.Instance.LockHotKey(false);
     }
 
     void Update() {
         if (boo) {
-            UIPanelManager.Instance.LockUI = boo;
+            //UIPanelManager.Instance.LockUI = boo;
         }
-        if (Input.GetKeyDown(KeyCode.F1)) {
-            UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1");
-            if (ui1.UI11_can.gameObject.activeInHierarchy) {
-                ui1.Close();
-            } else {
-                ui1.Open();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.F2)) {
-            UI2UIPanel ui2 = UIPanelManager.Instance.GetPanel<UI2UIPanel>("UI2");
-            if (ui2.UI2_can.gameObject.activeInHierarchy) {
-                ui2.Close();
-            } else {
-                ui2.Open();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.F3)) {
-            UI3UIPanel ui3 = UIPanelManager.Instance.GetPanel<UI3UIPanel>("UI3");
-            if (ui3.UI3_can.gameObject.activeInHierarchy) {
-                ui3.Close();
-            } else {
-                ui3.Open();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.F1)) {
+        //    UI1UIPanel ui1 = UIPanelManager.Instance.GetPanel<UI1UIPanel>("UI1");
+        //    if (ui1.UI11_can.gameObject.activeInHierarchy) {
+        //        ui1.Close();
+        //    } else {
+        //        ui1.Open();
+        //    }
+        //}
+        //if (Input.GetKeyDown(KeyCode.F2)) {
+        //    UI2UIPanel ui2 = UIPanelManager.Instance.GetPanel<UI2UIPanel>("UI2");
+        //    if (ui2.UI2_can.gameObject.activeInHierarchy) {
+        //        ui2.Close();
+        //    } else {
+        //        ui2.Open();
+        //    }
+        //}
+        //if (Input.GetKeyDown(KeyCode.F3)) {
+        //    UI3UIPanel ui3 = UIPanelManager.Instance.GetPanel<UI3UIPanel>("UI3");
+        //    if (ui3.UI3_can.gameObject.activeInHierarchy) {
+        //        ui3.Close();
+        //    } else {
+        //        ui3.Open();
+        //    }
+        //}
     }
 
     void OnEnable() {

@@ -397,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92cae42bb839f9b489ff6549f5fa38d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hotKey: 284
   UI3_can: {fileID: 1512032469}
   Win_cang: {fileID: 2046345645}
   UI3_ptxt: {fileID: 1739835507}
@@ -898,6 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b12b8860be6a94f965667d0ad33bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hotKey: 283
   UI2_can: {fileID: 1095339472}
   Win_cang: {fileID: 894355319}
   UI2_btn: {fileID: 441254414}
@@ -2995,6 +2997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62830f54c96d4a4ba115cd0ca1148c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hotKey: 282
   UI11_can: {fileID: 672063414}
   UI1_cang: {fileID: 1650620605}
   Win_go: {fileID: 1528422085}

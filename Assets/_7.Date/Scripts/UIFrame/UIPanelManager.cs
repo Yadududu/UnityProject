@@ -14,22 +14,31 @@ public class UIPanelManager {
             return _instance;
         }
     }
-    public bool LockUI { get; set; }
+
+    public UnityAction<bool> lockHotKeyAction;
+    //public bool LockUI { get; set; }
     public UnityEvent OnChangeTier = new UnityEvent();
     private List<BaseUIPanel> panelList = new List<BaseUIPanel>();
-    
+
+    public void LockHotKey(bool b) {
+        if (lockHotKeyAction != null) lockHotKeyAction.Invoke(b);
+    }
 
     public void PushPanel(BaseUIPanel panel) {
-        if (LockUI) return;
-        //停止上一个界面
-        if (panelList.Count > 0) {
-            BaseUIPanel topPanel = panelList[panelList.Count - 1];
-            topPanel.OnPause();
-        }
+        //Debug.Log(LockUI);
+        //if (LockUI) return;
         
-        panelList.Add(panel);
-        panel.OnEnter();
-        OnChangeTier.Invoke();
+        //如果队列中没有该UI则加入队列
+        if (!panelList.Contains(panel)) {
+            //停止上一个界面
+            if (panelList.Count > 0) {
+                BaseUIPanel topPanel = panelList[panelList.Count - 1];
+                topPanel.OnPause();
+            }
+            panelList.Add(panel);
+            panel.OnEnter();
+            OnChangeTier.Invoke();
+        }
     }
 
     public void PopPanel(BaseUIPanel panel) {
@@ -48,6 +57,7 @@ public class UIPanelManager {
         if (panelList.Count > 0) {
             panel = panelList[panelList.Count - 1];
             panel.OnResume();
+            //Debug.Log(panel.name);
         }
         OnChangeTier.Invoke();
     }
