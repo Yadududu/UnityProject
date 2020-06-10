@@ -14,6 +14,7 @@ namespace Zeus.UITemplate {
         public static Dictionary<string, string> typeMap = new Dictionary<string, string>(){
         { "sp", typeof(Sprite).Name },
         { "go", typeof(GameObject).Name},
+        { "tran", typeof(Transform).Name},
         { "can", typeof(Canvas).Name},
         { "cang", typeof(CanvasGroup).Name},
         { "txt", typeof(Text).Name },
