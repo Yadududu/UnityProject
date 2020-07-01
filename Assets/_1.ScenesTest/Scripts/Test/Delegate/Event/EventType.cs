@@ -1,4 +1,7 @@
-﻿public enum EventType
-{
-    ShowText,
+﻿
+namespace CustomEvent{
+    public enum EventType {
+        ShowText,
+    }
 }
+
