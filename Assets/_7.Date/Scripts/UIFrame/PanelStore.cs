@@ -13,13 +13,18 @@ public static class PanelStore<T> {
         if (panelDict.ContainsKey(panelType)) {
             panel = panelDict[panelType];
         } else {
-            throw new System.Exception("找不到键值(" + panelType + ")");
+            throw new System.Exception("找不到名为(" + panelType + ")的UI");
         }
 
         return panel;
     }
 
     public static void RegisterPanel(string panelType, T UIPanel) {
-        panelDict[panelType] = UIPanel;
+
+        if (!panelDict.ContainsKey(panelType)) {
+            panelDict[panelType] = UIPanel;
+        } else {
+            throw new System.Exception("该(" + panelType + ")UI已经注册");
+        }
     }
 }
