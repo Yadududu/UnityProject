@@ -18,8 +18,10 @@ public class UI3UIPanel : BaseUIPanel{
     public void Awake(){
         //注册入UIPanelManager
         UIPanelManager.Instance.RegisterPanel(this.name, this);
+        //添加层级管理
         UIPanelManager.Instance.OnChangeTier.AddListener(()=>UI3_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
         UI3_btn.onClick.AddListener(Close);
+        //添加快捷键管理
         UIPanelManager.Instance.lockHotKeyAction += LockHotKey;
     }
 

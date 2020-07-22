@@ -7,19 +7,18 @@ using TMPro;
 public class UI4UIPanel : BaseUIPanel{
 
     //--AutoCreateStart
-    public Canvas UI3_can;
+	public Canvas UI4_can;
 	public CanvasGroup Win_cang;
-	public TextMeshProUGUI UI3_ptxt;
-	public Button UI3_btn;
-
-    //--AutoCreateEnd
+	public TextMeshProUGUI UI4_ptxt;
+	public Button UI4_btn;
+	//--AutoCreateEnd
 
     public void Awake(){
         //注册入UIPanelManager
         UIPanelManager.Instance.RegisterPanel(this.name, this);
-
-        UIPanelManager.Instance.OnChangeTier.AddListener(()=>UI3_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
-        UI3_btn.onClick.AddListener(() => this.Close());
+        //添加层级管理
+        UIPanelManager.Instance.OnChangeTier.AddListener(()=>UI4_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
+        UI4_btn.onClick.AddListener(() => this.Close());
     }
 
     public void Start(){
@@ -36,12 +35,12 @@ public class UI4UIPanel : BaseUIPanel{
     }
     //UI启动时执行
     public override void OnEnter() {
-        UI3_can.gameObject.SetActive(true);
+        UI4_can.gameObject.SetActive(true);
         Win_cang.blocksRaycasts = true;
     }
     //UI退出时执行
     public override void OnExit() {
-        UI3_can.gameObject.SetActive(false);
+        UI4_can.gameObject.SetActive(false);
     }
     //UI暂停时执行
     public override void OnPause() {

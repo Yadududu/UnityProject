@@ -20,9 +20,11 @@ public class UI1UIPanel : BaseUIPanel {
     public void Awake() {
         //注册入UIPanelManager
         UIPanelManager.Instance.RegisterPanel(this.name, this);
+        //添加层级管理
         UIPanelManager.Instance.OnChangeTier.AddListener(() => UI11_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
         UI11_btn.onClick.AddListener(Close);
         UI12_btn.onClick.AddListener(() => UIPanelManager.Instance.GetPanel<UI4UIPanel>("UI4").Open());
+        //添加快捷键管理
         UIPanelManager.Instance.lockHotKeyAction += LockHotKey;
     }
 
