@@ -4,33 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UI1UIPanel : BaseUIPanel{
+public class UI1UIPanel : BaseUIPanel {
 
     public KeyCode hotKey = KeyCode.F1;
     //--AutoCreateStart
     public Canvas UI11_can;
-	public CanvasGroup UI1_cang;
-	public GameObject Win_go;
-	public Button UI11_btn;
-	public Button UI12_btn;
-	public List<GameObject> Win2_gos = new List<GameObject>();
+    public CanvasGroup UI1_cang;
+    public GameObject Win_go;
+    public Button UI11_btn;
+    public Button UI12_btn;
+    public List<GameObject> Win2_gos = new List<GameObject>();
     //--AutoCreateEnd
     private KeyCode _HotKey = KeyCode.None;
 
-    public void Awake(){
+    public void Awake() {
         //注册入UIPanelManager
         UIPanelManager.Instance.RegisterPanel(this.name, this);
-        UIPanelManager.Instance.OnChangeTier.AddListener(()=>UI11_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
+        //添加层级管理
+        UIPanelManager.Instance.OnChangeTier.AddListener(() => UI11_can.sortingOrder = UIPanelManager.Instance.GetPanelTier(this));
         UI11_btn.onClick.AddListener(Close);
+        UI12_btn.onClick.AddListener(() => UIPanelManager.Instance.GetPanel<UI4UIPanel>("UI4").Open());
+        //添加快捷键管理
         UIPanelManager.Instance.lockHotKeyAction += LockHotKey;
     }
 
-    public void Start(){
+    public void Start() {
 
     }
     public void Update() {
         if (Input.GetKeyDown(_HotKey)) {
-            Open();
+            if (UI11_can.gameObject.activeSelf == true) {
+                Close();
+            } else {
+                Open();
+            }
         }
     }
     public void LockHotKey(bool b) {
