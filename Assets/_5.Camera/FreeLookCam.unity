@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Target: {fileID: 17012105}
-  m_LockCursor: 0
+  m_LockCursor: 1
   m_MoveSpeed: 1
   m_TurnSpeed: 1.5
 --- !u!1 &422853504
